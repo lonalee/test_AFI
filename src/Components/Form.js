@@ -24,8 +24,7 @@ class MyForm extends Component {
       <div>
         <Formik>
           <Form onSubmit={handleSubmit}>
-            {/*onSubmit prop에 binding을 해야 withFormik에 handleSubmit이 작동함*/}
-            <label>NAME</label>
+            <label>이름</label>
             <Field
               onChange={handleChange}
               value={values.userName}
@@ -34,12 +33,10 @@ class MyForm extends Component {
             />
             <br />
             {errors.userName && touched.userName && (
-              <div id="feedback" style={{ marginTop: "20px" }}>
-                {errors.userName}
-              </div>
+              <div id="feedback">{errors.userName}</div>
             )}
             <br />
-            <label>Cell Phone</label>
+            <label>전화번호</label>
             <Field
               name="number"
               value={values.number}
@@ -48,19 +45,11 @@ class MyForm extends Component {
             />
             <br />
             {errors.number && touched.number && (
-              <div id="feedback" style={{ marginTop: "20px" }}>
-                {errors.number}
-              </div>
+              <div id="feedback">{errors.number}</div>
             )}
             <br />
             <button type="submit">Submit</button>
-            {console.log("errors", errors)}
-
-            {/* {console.log("after handleSubmit", { contactInfo })}
-            {console.log("after handleSubmit", values)} */}
-            {contactInfo.user && (
-              <View style={{ marginTop: "20px" }} contactInfo={contactInfo} />
-            )}
+            {contactInfo.user && <View contactInfo={contactInfo} />}
           </Form>
         </Formik>
       </div>
@@ -68,6 +57,7 @@ class MyForm extends Component {
   }
 }
 
+// values 초기화, 사용자 입력 검증, onSubmit 처리
 const MyTestForm = withFormik({
   mapPropsToValues: () => ({
     id: "",
@@ -75,11 +65,8 @@ const MyTestForm = withFormik({
     number: ""
   }),
 
-  // Custom sync validation
-  validate: (values, props) => {
+  validate: values => {
     const errors = {};
-    console.log(props);
-    // -----------------------------------validate Name----------------------------- //
     if (!values.userName) {
       errors.userName = "Required";
     } else if (values.userName) {
@@ -106,25 +93,19 @@ const MyTestForm = withFormik({
     return errors;
   },
   handleSubmit: (values, FormikBag) => {
-    //  values and the "FormikBag" are passed,
-    // which includes an object containing a subset of the injected props and methods
-    console.log("FORMIKBAG****** : ", FormikBag);
     FormikBag.props.submitUser({ ...values, id: uuid() });
     FormikBag.resetForm();
-    console.log("after", values);
   },
   displayName: "BasicForm"
 })(MyForm);
 
 MyTestForm.propTypes = {
   submitUser: PropTypes.func.isRequired,
-  contactInfo: PropTypes.object.isRequired,
-  errors: PropTypes.string
+  contactInfo: PropTypes.object.isRequired
 };
 
 const mapPropsToState = state => ({
-  contactInfo: state.contactInfo,
-  errors: state.errors
+  contactInfo: state.contactInfo
 });
 
 export default connect(

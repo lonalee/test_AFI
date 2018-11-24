@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import { Provider } from "react-redux"; // store를 통한 전체 상태 관리
+import { Provider } from "react-redux";
 import store from "./store";
 
 import MyTestForm from "./Components/Form";

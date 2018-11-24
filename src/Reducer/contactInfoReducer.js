@@ -7,7 +7,8 @@ const initialState = {
 export default function contactInfoReducer(state = initialState, action) {
   switch (action.type) {
     case SUBMIT_NEWUSER:
-      return { ...state, user: [...state.user, action.payload] };
+      console.log(state);
+      return { user: [...state.user, action.payload] };
 
     default:
       return state;
