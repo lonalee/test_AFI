@@ -1,0 +1,1 @@
+export const SUBMIT_NEWUSER = "SUBMIT_NEWUSER";
