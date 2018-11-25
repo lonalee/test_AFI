@@ -85,8 +85,8 @@ const MyTestForm = withFormik({
       for (let i = 0; i < arr.length; i++) {
         if (!/^[0-9]/i.test(arr[i])) {
           errors.number = "Invalid Number";
-        } else if (values.number.length > 11) {
-          errors.number = "Number must be under 12 digits";
+        } else if (values.number.length !== 11) {
+          errors.number = "Number must be 11 digits";
         }
       }
     }
