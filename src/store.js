@@ -5,13 +5,12 @@ import thunk from "redux-thunk";
 const middleware = [thunk];
 const initialState = {};
 
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION__ || compose;
+
 const store = createStore(
   rootReducer,
   initialState,
-  compose(
-    applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+  composeEnhancer(applyMiddleware(...middleware))
 );
 
 export default store;
